@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open External Browser</title>
+    <script>
+        function openInExternalBrowser() {
+            var url = "https://google.com";
+
+            if (navigator.userAgent.match(/FBAN|FBAV/)) {
+                if (navigator.userAgent.match(/iPhone|iPad|iPod/)) {
+                    // Открываем через Chrome, если установлен
+                    window.setTimeout(function () {
+                        window.location.href = "googlechrome://" + url.replace(/^https?:\/\//, '');
+                    }, 100);
+
+                    // Если Chrome не установлен, пробуем открыть через Safari
+                    window.setTimeout(function () {
+                        if (window.location.href !== "googlechrome://" + url.replace(/^https?:\/\//, '')) {
+                            window.location.href = "safari://open?url=" + url;
+                        }
+                    }, 500);
+
+                } else if (navigator.userAgent.match(/Android/)) {
+                    window.location.href = "intent://" + url.replace(/^https?:\/\//, '') + "#Intent;scheme=https;package=com.android.chrome;end";
+
+                    window.setTimeout(function () {
+                        window.location.href = "about:blank";
+                    }, 500);
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Test Button to Open External Browser</h1>
+    <button onclick="openInExternalBrowser()">Test</button>
+</body>
+</html>
