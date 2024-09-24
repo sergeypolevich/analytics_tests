@@ -38,6 +38,26 @@
     </script>
 </head>
 <body>
+    <h1>Your User Agent:</h1>
+    <p id="user-agent"></p>
+
+    <script>
+        function isFacebookInAppBrowser() {
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            return /FBAN|FBAV|FB_IAB/.test(userAgent);
+        }
+
+        if (isFacebookInAppBrowser()) {
+            alert('facebook')
+            const url = "https://google.com"; // Ваша ссылка
+            window.open(url, '_blank'); // Открыть новую вкладку с указанной ссылкой
+        }
+        else {
+            alert('not facebook')
+        }
+        // Получаем элемент по ID и вставляем в него значение userAgent
+        document.getElementById('user-agent').textContent = navigator.userAgent;
+    </script>
     <h1>Test Button to Open External Browser</h1>
     <button onclick="openInExternalBrowser()">Test</button>
     <button onclick="windowLocation()">Test2</button>
