@@ -5,30 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Open External Browser</title>
     <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                alert("Ссылка скопирована в буфер обмена!");
+            }).catch(function(error) {
+                alert("Ошибка при копировании: " + error);
+            });
+        }
+
+        function showSafariMessage() {
+            var url = "https://google.com";
+            document.getElementById('safari-popup').innerHTML = `
+                <p>Для корректной работы сайта скопируйте ссылку и вставьте её в Safari:</p>
+                <button onclick="copyToClipboard('` + url + `')">Копировать</button>
+            `;
+            document.getElementById('safari-popup').style.display = 'block';
+        }
+
         function openInExternalBrowser() {
             var url = "https://google.com";
 
             if (navigator.userAgent.match(/FBAN|FBAV/)) {
                 if (navigator.userAgent.match(/iPhone|iPad|iPod/)) {
-                    // Открываем через Chrome, если установлен
-                    window.setTimeout(function () {
-                        window.location.href = "googlechrome://" + url.replace(/^https?:\/\//, '');
-                    }, 100);
+                    var chromeLink = "googlechrome://" + url.replace(/^https?:\/\//, '');
+                    window.location.href = chromeLink;
 
-                    // Если Chrome не установлен, пробуем открыть через Safari
-                    window.setTimeout(function () {
-                        if (window.location.href !== "googlechrome://" + url.replace(/^https?:\/\//, '')) {
-                            window.location.href = "safari://open?url=" + url;
-                        }
-                    }, 500);
+                    setTimeout(showSafariMessage, 1000);
 
                 } else if (navigator.userAgent.match(/Android/)) {
                     window.location.href = "intent://" + url.replace(/^https?:\/\//, '') + "#Intent;scheme=https;package=com.android.chrome;end";
 
                     window.setTimeout(function () {
-                        window.location.href = "about:blank";
+                        window.location.href = url; 
                     }, 500);
                 }
+            } else {
+                window.location.href = url;
             }
         }
     </script>
@@ -36,5 +48,6 @@
 <body>
     <h1>Test Button to Open External Browser</h1>
     <button onclick="openInExternalBrowser()">Test</button>
+    <div id="safari-popup" style="display:none; margin-top: 20px; background: #f9f9f9; padding: 10px; border: 1px solid #ccc;"></div>
 </body>
 </html>
