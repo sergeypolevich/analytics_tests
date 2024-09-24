@@ -40,18 +40,9 @@
                     }, 500);
                 }
             } else {
-                alert("Кнопка доступна только в браузере Facebook.");
+                window.location.href = url;
             }
         }
-
-        // Disable button if not in Facebook browser
-        function checkBrowser() {
-            if (!navigator.userAgent.match(/FBAN|FBAV/)) {
-                document.querySelector("button").disabled = true;
-            }
-        }
-
-        window.onload = checkBrowser;
     </script>
 </head>
 <body>
