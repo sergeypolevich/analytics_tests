@@ -7,17 +7,17 @@
     <script>
         function copyToClipboard(text) {
             navigator.clipboard.writeText(text).then(function() {
-                alert("Ссылка скопирована в буфер обмена!");
+                alert("Link copied to clipboard!");
             }).catch(function(error) {
-                alert("Ошибка при копировании: " + error);
+                alert("Error copying link: " + error);
             });
         }
 
         function showSafariMessage() {
             var url = "https://google.com";
             document.getElementById('safari-popup').innerHTML = `
-                <p>Для корректной работы сайта скопируйте ссылку и вставьте её в Safari:</p>
-                <button onclick="copyToClipboard('` + url + `')">Копировать</button>
+                <p>For proper website functionality, please copy the link and paste it into Safari:</p>
+                <button onclick="copyToClipboard('` + url + `')">Copy</button>
             `;
             document.getElementById('safari-popup').style.display = 'block';
         }
@@ -40,7 +40,7 @@
                     }, 500);
                 }
             } else {
-                alert("Кнопка доступна только в браузере Facebook.");
+                alert("This button is only available in the Facebook browser.");
             }
         }
 
