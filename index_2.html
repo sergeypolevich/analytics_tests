@@ -25,7 +25,7 @@
         function openInExternalBrowser() {
             var url = "https://google.com";
 
-            if (navigator.userAgent.match(/FBAN|FBAV/)) {
+            if (navigator.userAgent.match(/FBAN|FBAV|Instagram/)) {
                 if (navigator.userAgent.match(/iPhone|iPad|iPod/)) {
                     var chromeLink = "googlechrome://" + url.replace(/^https?:\/\//, '');
                     window.location.href = chromeLink;
@@ -46,7 +46,7 @@
 
         // Disable button if not in Facebook browser
         function checkBrowser() {
-            if (!navigator.userAgent.match(/FBAN|FBAV/)) {
+            if (!navigator.userAgent.match(/FBAN|FBAV|Instagram/)) {
                 document.querySelector("button").disabled = true;
             }
         }
